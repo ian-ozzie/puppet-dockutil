@@ -38,9 +38,14 @@ define dockutil::item (
         default => "--after '${pos_after}'",
       }
 
-      $position = $pos_value ? {
-        undef   => '',
-        default => "--position '${pos_value}'",
+      if $pos_value != undef {
+        validate_re($pos_value, '^(\d+|beginning|end|middle)$',
+          "${pos_value} is not supported for pos_value.
+          Allowed values are beginning, end, middle, or an integer for a specific position."
+        )
+        $position = "--position '${pos_value}'"
+      } else {
+        $position = ''
       }
 
       exec { "dockutil-add-${name}":
