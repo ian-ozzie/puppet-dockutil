@@ -1,7 +1,7 @@
 # Add item to OSX dock
 define dockutil::item (
   $ensure,
-  $item = $name,
+  $item = "/Applications/${name}.app",
   $pos_before = undef,
   $pos_after = undef,
   $pos_value = undef,
@@ -18,11 +18,11 @@ define dockutil::item (
     Dockutil::Item[$name] ~>
     Class['Dockutil::Reload']
 
-  if ($pos_before != undef) {
+  if $pos_before != undef {
     Dockutil::Item[$pos_before] -> Dockutil::Item[$name]
   }
 
-  if ($pos_after != undef) {
+  if $pos_after != undef {
     Dockutil::Item[$pos_after] -> Dockutil::Item[$name]
   }
 
