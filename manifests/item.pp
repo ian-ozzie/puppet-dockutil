@@ -1,7 +1,7 @@
 # Add item to OSX dock
 define dockutil::item (
   $ensure,
-  $item,
+  $item = $name,
   $pos_before = undef,
   $pos_after = undef,
   $pos_value = undef,
